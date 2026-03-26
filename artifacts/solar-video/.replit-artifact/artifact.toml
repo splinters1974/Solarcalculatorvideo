@@ -1,0 +1,31 @@
+kind = "video"
+previewPath = "/solar-video/"
+title = "UK Solar Calculator Promo Video"
+version = "1.0.0"
+id = "artifacts/solar-video"
+router = "path"
+
+[[integratedSkills]]
+name = "video-js"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/solar-video/" ]
+localPort = 18962
+
+[services.development]
+run = "pnpm --filter @workspace/solar-video run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/solar-video", "run", "build" ]
+publicDir = "artifacts/solar-video/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18962"
+BASE_PATH = "/solar-video/"
